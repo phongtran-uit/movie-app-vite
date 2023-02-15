@@ -1,0 +1,31 @@
+.custom-button {
+    padding: 10px 26px;
+    border: none;
+    border-radius: 100px;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+.custom-button.default {
+    background-color: $color-orange;
+    color: $color-white;
+    &:hover {
+        background-color: $color-white;
+        color: $color-black-bg;
+    }
+}
+.custom-button.black-bg {
+    background-color: $color-orange;
+    color: $color-white;
+    &:hover {
+        background-color: $color-black-bg;
+        color: $color-white;
+    }
+}
+
+.custom-button.orange-bg {
+    background-color: $color-black-bg;
+    color: $color-white;
+    &:hover {
+        background-color: $color-orange;
+    }
+}

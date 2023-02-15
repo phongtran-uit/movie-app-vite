@@ -1,0 +1,82 @@
+import * as React from 'react';
+import { Dropdown } from 'react-bootstrap';
+import logo from '../../assets/Marcus.png';
+import InputSearch from '../InputSearch';
+interface IHeaderProps {}
+
+const Header: React.FunctionComponent<IHeaderProps> = (props) => {
+    const [activeId, setActiveId] = React.useState(1);
+    const [inputSearch, setInputSearch] = React.useState('');
+    const headerMenu = [
+        {
+            id: 1,
+            name: 'home',
+            href: '/',
+        },
+        {
+            id: 2,
+            name: 'movies',
+            href: '/movies',
+        },
+    ];
+
+    const renderMenu = () => {
+        return headerMenu.map((item) => (
+            <div
+                key={item.id}
+                className={`menu-item ${activeId === item.id ? 'active' : ''}`}
+                onClick={() => onClickMenu(item.id)}
+            >
+                {item.name}
+            </div>
+        ));
+    };
+    const onClickMenu = (id: number) => {
+        setActiveId(id);
+    };
+
+    const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setInputSearch(value);
+    };
+    return (
+        <div className="header d-flex justify-content-between align-items-center">
+            <div className="header-left d-flex justify-content-between align-items-center">
+                <div className="header-logo">
+                    <img
+                        className="img-fluid"
+                        width={150}
+                        src={logo}
+                        alt="logo"
+                    />
+                </div>
+                <div className="header-menu d-flex justify-content-between align-items-center">
+                    {renderMenu()}
+                </div>
+            </div>
+            <div className="header-right d-flex justify-content-center align-items-center">
+                <InputSearch
+                    inputProps={{
+                        value: inputSearch,
+                        placeholder: 'Search....',
+                        onChange: onChangeSearch,
+                    }}
+                />
+                <Dropdown className="ms-3 avatar-dropdown" align={'end'}>
+                    <Dropdown.Toggle className="toggle-avatar">
+                        <i className="fa-solid fa-user"></i>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Header>Hi, Marcus</Dropdown.Header>
+                        <Dropdown.Item>Profile</Dropdown.Item>
+                        <Dropdown.Item>History</Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item>Log out</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        </div>
+    );
+};
+
+export default Header;
