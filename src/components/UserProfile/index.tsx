@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxs';
 import { getAuthState } from '../../reducer/selectors/authSelector';
 import { logOut } from '../../reducer/slices/authSlice';
@@ -8,15 +9,21 @@ import LoginForm from '../LoginForm';
 interface IUserProfileProps {}
 
 const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
-    const { isLogged, data } = useAppSelector(getAuthState);
+    const { isLogged, data, isLogging } = useAppSelector(getAuthState);
     const [dropdownState, setDropdownState] = React.useState(false);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const onLogOut = () => {
         dispatch(logOut());
     };
     const toggleDropdown = (nextShow: boolean) => {
         setDropdownState(nextShow);
     };
+    React.useEffect(() => {
+        if (isLogged) {
+            navigate('/');
+        }
+    }, [isLogged]);
     return (
         <Dropdown
             className="ms-3 avatar-dropdown"
@@ -40,7 +47,10 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                     <Dropdown.Header className="text-center">
                         Login
                     </Dropdown.Header>
-                    <LoginForm closeDropdown={() => toggleDropdown(false)} />
+                    <LoginForm
+                        isLogging={isLogging}
+                        closeDropdown={() => toggleDropdown(false)}
+                    />
                 </Dropdown.Menu>
             )}
         </Dropdown>

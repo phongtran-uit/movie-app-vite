@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/Marcus.png';
+import { useAppSelector } from '../../hooks/reduxs';
+import { getAuthState } from '../../reducer/selectors/authSelector';
 import InputSearch from '../InputSearch';
 import UserProfile from '../UserProfile';
 interface IHeaderProps {}
@@ -9,7 +11,6 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     const [activeId, setActiveId] = React.useState(1);
     const [inputSearch, setInputSearch] = React.useState('');
     const navigate = useNavigate();
-
     const headerMenu = [
         {
             id: 1,

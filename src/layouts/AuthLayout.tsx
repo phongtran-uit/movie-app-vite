@@ -1,8 +1,7 @@
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import * as React from 'react';
 import { toast } from 'react-toastify';
-import { useAppDispatch, useAppSelector } from '../hooks/reduxs';
-import { getAuthState } from '../reducer/selectors/authSelector';
+import { useAppDispatch } from '../hooks/reduxs';
 import { IUser, loginSuccess } from '../reducer/slices/authSlice';
 
 interface IAuthLayoutProps {
@@ -11,6 +10,7 @@ interface IAuthLayoutProps {
 
 const AuthLayout: React.FunctionComponent<IAuthLayoutProps> = (props) => {
     const dispatch = useAppDispatch();
+
     React.useEffect(() => {
         const userDataJSON = localStorage.getItem('userData');
         if (userDataJSON) {
@@ -19,6 +19,7 @@ const AuthLayout: React.FunctionComponent<IAuthLayoutProps> = (props) => {
             toast.success(`Hi ${userFromLS.hoTen}, welcome back!`);
         }
     }, []);
+
     return <>{props.children}</>;
 };
 

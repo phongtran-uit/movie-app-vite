@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash';
 import * as React from 'react';
 import { Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -8,15 +9,17 @@ import Button from '../Buttons';
 
 interface ILoginFormProps {
     closeDropdown: () => void;
+    isLogging: boolean;
 }
 
 const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
+    const { isLogging } = props;
     const dispatch = useAppDispatch();
-    const { isLogging } = useAppSelector(getAuthState);
+
     const navigate = useNavigate();
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(actLogin(loginData));
+        !isLogging && dispatch(actLogin(loginData));
     };
     const [loginData, setLoginData] = React.useState({
         taiKhoan: '',
@@ -30,7 +33,6 @@ const LoginForm: React.FunctionComponent<ILoginFormProps> = (props) => {
         props.closeDropdown();
         navigate('/register');
     };
-
     return (
         <>
             <Form onSubmit={onSubmit}>
