@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/Marcus.png';
 import InputSearch from '../InputSearch';
+import UserProfile from '../UserProfile';
 interface IHeaderProps {}
 
 const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     const [activeId, setActiveId] = React.useState(1);
     const [inputSearch, setInputSearch] = React.useState('');
+    const navigate = useNavigate();
+
     const headerMenu = [
         {
             id: 1,
@@ -25,25 +28,28 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             <div
                 key={item.id}
                 className={`menu-item ${activeId === item.id ? 'active' : ''}`}
-                onClick={() => onClickMenu(item.id)}
+                onClick={() => onClickMenu(item.id, item.href)}
             >
                 {item.name}
             </div>
         ));
     };
-    const onClickMenu = (id: number) => {
+    const onClickMenu = (id: number, href: string) => {
         setActiveId(id);
+        navigate(href);
     };
 
     const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setInputSearch(value);
     };
+
     return (
         <div className="header d-flex justify-content-between align-items-center">
             <div className="header-left d-flex justify-content-between align-items-center">
                 <div className="header-logo">
                     <img
+                        onClick={() => navigate('/')}
                         className="img-fluid"
                         width={150}
                         src={logo}
@@ -62,18 +68,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                         onChange: onChangeSearch,
                     }}
                 />
-                <Dropdown className="ms-3 avatar-dropdown" align={'end'}>
-                    <Dropdown.Toggle className="toggle-avatar">
-                        <i className="fa-solid fa-user"></i>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Header>Hi, Marcus</Dropdown.Header>
-                        <Dropdown.Item>Profile</Dropdown.Item>
-                        <Dropdown.Item>History</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item>Log out</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
+                <UserProfile />
             </div>
         </div>
     );

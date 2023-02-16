@@ -1,0 +1,15 @@
+.avatar-dropdown {
+    .dropdown-header {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: $color-orange;
+    }
+    .dropdown-item {
+        transition: all 0.3s;
+        font-weight: bold;
+        &:hover {
+            background-color: $color-orange;
+            color: $color-white;
+        }
+    }
+}

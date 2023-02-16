@@ -8,6 +8,9 @@
     z-index: 100;
     &-logo {
         margin-right: 1rem;
+        img {
+            cursor: pointer;
+        }
     }
     &-menu {
         .menu-item {
@@ -58,21 +61,6 @@
         }
         &:hover {
             background-color: $color-orange;
-        }
-    }
-    .avatar-dropdown {
-        .dropdown-header {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: $color-orange;
-        }
-        .dropdown-item {
-            transition: all 0.3s;
-            font-weight: bold;
-            &:hover {
-                background-color: $color-orange;
-                color: $color-white;
-            }
         }
     }
 }

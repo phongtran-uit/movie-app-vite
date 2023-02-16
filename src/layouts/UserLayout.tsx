@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Button } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
+import TrailerModal from '../components/Modal/TrailerModal';
 
 interface IUserLayoutProps {}
 
@@ -14,6 +14,7 @@ const UserLayout: React.FunctionComponent<IUserLayoutProps> = (props) => {
                 <Outlet />
             </main>
             <Footer />
+            <TrailerModal />
         </div>
     );
 };

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IMovie } from '../../reducer/slices/moviesSlice';
 import m from 'moment';
 import Button from '../Buttons';
+import { useNavigate } from 'react-router-dom';
 
 interface IMovieCardProps {
     movie: IMovie;
@@ -9,6 +10,10 @@ interface IMovieCardProps {
 
 const MovieCard: React.FunctionComponent<IMovieCardProps> = (props) => {
     const { movie } = props;
+    const navigate = useNavigate();
+    const goToDetailPage = (id: string | number) => {
+        navigate(`/movies/${id}`);
+    };
     return (
         <div className="movie-card">
             <div className="card-img">
@@ -36,7 +41,11 @@ const MovieCard: React.FunctionComponent<IMovieCardProps> = (props) => {
                 </p>
             </div>
             <div className="card-bottom">
-                <Button class="card-btn-left" variant="default">
+                <Button
+                    class="card-btn-left"
+                    variant="default"
+                    onClick={() => goToDetailPage(movie.maPhim)}
+                >
                     Detail
                 </Button>
                 <Button class="card-btn-right" variant="default">

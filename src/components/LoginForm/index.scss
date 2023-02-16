@@ -1,0 +1,9 @@
+.register-btn {
+    text-decoration: underline;
+    color: $color-orange;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+        font-weight: bold;
+    }
+}

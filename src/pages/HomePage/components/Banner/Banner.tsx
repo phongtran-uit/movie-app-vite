@@ -1,10 +1,11 @@
 import moment from 'moment';
 import * as React from 'react';
-import { Col, Row } from 'react-bootstrap';
 import Slider from 'react-slick';
 import Button from '../../../../components/Buttons';
 import MovieCard from '../../../../components/MovieCard';
+import { useAppDispatch } from '../../../../hooks/reduxs';
 import UseTransition from '../../../../hooks/useTransition';
+import { openModal } from '../../../../reducer/slices/globalSlice';
 import { IMovie } from '../../../../reducer/slices/moviesSlice';
 
 interface IBannerProps {
@@ -13,9 +14,11 @@ interface IBannerProps {
 
 const Banner: React.FunctionComponent<IBannerProps> = (props) => {
     const [bannerImgIdx, setBannerImgIdx] = React.useState(0);
+    const dispatch = useAppDispatch();
     const settings = {
         dots: false,
         infinite: true,
+        fade: true,
         speed: 500,
         arrows: true,
         slidesToShow: 1,
@@ -24,6 +27,14 @@ const Banner: React.FunctionComponent<IBannerProps> = (props) => {
         beforeChange: (current: any, next: any) => {
             setBannerImgIdx(next);
         },
+    };
+    const openTrailer = (videoUrl: string) => {
+        dispatch(
+            openModal({
+                type: 'trailer',
+                data: videoUrl,
+            })
+        );
     };
     const renderSlides = () => {
         return props.movies.map((item) => (
@@ -54,7 +65,11 @@ const Banner: React.FunctionComponent<IBannerProps> = (props) => {
                             </p>
                         </div>
                         <div className="text-center">
-                            <Button class="trailer" variant="default">
+                            <Button
+                                class="trailer"
+                                variant="default"
+                                onClick={() => openTrailer(item.trailer)}
+                            >
                                 Watch Trailer
                             </Button>
                         </div>
@@ -73,7 +88,6 @@ const Banner: React.FunctionComponent<IBannerProps> = (props) => {
                     }}
                 ></div>
             </UseTransition>
-
             <div className="carousel">
                 <Slider {...settings}>{renderSlides()}</Slider>
             </div>
